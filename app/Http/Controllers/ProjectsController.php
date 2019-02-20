@@ -60,9 +60,10 @@ class ProjectsController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit($id)
     {
-        //
+        $project = Project::find($id);
+        return view('projects.edit', compact('project'));
     }
 
     /**
@@ -72,9 +73,13 @@ class ProjectsController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
-        //
+        $project = Project::find($id);
+        $project->title = $request->title;
+        $project->description = $request->description;
+        $project->save();
+        return redirect('/projects');
     }
 
     /**
@@ -83,8 +88,10 @@ class ProjectsController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
-        //
+        $project= Project::find($id);
+        $project->delete($id);
+        return redirect('/projects');
     }
 }

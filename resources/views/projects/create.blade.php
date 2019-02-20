@@ -1,20 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Create Projects</h1>
-    <form action="/projects" method="POST">
+@extends('layouts.master')
+@section('content')
+<h1 class="text-info">Create a Project</h1>
+<br>
+<form method= "POST" action="/projects" >
         @csrf
-        <label for="title">Title</label>
-        <input type="text" placeholder="e.g. Learn Laravel" name="title" id="title">
-        <label for="description">Description</label>
-        <textarea placeholder="e.g. Finish the Laravel 5.7 from scratch serie on Laracasts" name="description" id="description"></textarea>
-        <button type="submit">Submit</button>
+        <div class="form-group">
+            <label for="projectTitle">Project Ttile</label>
+            <input type="text" class="form-control" id="projectTitle" placeholder="e.g. Learn Laravel" name="title">
+        </div>
+        <div class="form-group">
+            <label for="projectDescription">Project Description</label>
+            <textarea class="form-control" name="description" id="projectDescription" cols="30" rows="5" placeholder="e.g. Finish the laracast serie"></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
     </form>
-</body>
-</html>
+@endsection
