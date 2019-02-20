@@ -5,7 +5,9 @@
     <ul class="list-group">
         @foreach ($projects as $project)
             <li class="list-group-item">
-                {{$project->title}}
+                <a href="/projects/{{$project->id}}">
+                    {{$project->title}}
+                </a>
             <a href="projects/{{$project->id}}/edit" class="btn btn-primary btn-sm float-right">Edit</a>
             </li>
         @endforeach

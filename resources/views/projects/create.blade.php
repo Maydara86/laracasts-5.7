@@ -10,7 +10,7 @@
         </div>
         <div class="form-group">
             <label for="projectDescription">Project Description</label>
-            <textarea class="form-control" name="description" id="projectDescription" cols="30" rows="5" placeholder="e.g. Finish the laracast serie"></textarea>
+            <textarea class="form-control" name="description" id="projectDescription" rows="5" placeholder="e.g. Finish the laracast serie"></textarea>
         </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Submit</button>
