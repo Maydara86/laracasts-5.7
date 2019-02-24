@@ -8,7 +8,7 @@
                 <a href="/projects/{{$project->id}}">
                     {{$project->title}}
                 </a>
-            <a href="projects/{{$project->id}}/edit" class="btn btn-primary btn-sm float-right">Edit</a>
+            <a href="/projects/{{$project->id}}/edit" class="btn btn-primary btn-sm float-right">Edit</a>
             </li>
         @endforeach
     </ul>

@@ -20,5 +20,16 @@
       @endforeach
   @endif
   <a href="/projects/{{$project->id}}/edit" class="btn btn-primary">Edit</a>
-
+  <hr>
+      <form action="/projects/{{ $project->id }}/tasks" method="POST">
+    @csrf
+    <div class="form-group">
+      <label for="task">New Task</label>
+      <input type="text" class="form-control" id="task" name="description">
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">Add Task</button>
+    </div>
+  </form>
+  @include('layouts.errors')
 @endsection
