@@ -14,10 +14,8 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::where('owner_id', auth()->id())->get();
-        cache()->rememberForever('projectsTitles', function () {
-            return Project::all()->pluck('title');
-        });
+        // $projects = Project::where('owner_id', auth()->id())->get();
+        $projects = auth()->user()->projects;
         return view('projects.index', compact('projects'));
     }
 
@@ -39,15 +37,9 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = $request->validate([
-            'title' => 'required|min:3|max:255',
-            'description' => 'required|min:3'
-        ]);
+        $attributes = $this->validateProject($request);
         $attributes['owner_id'] = auth()->id();
-        $project = Project::create($attributes);
-        \Mail::to('onika@example.com')->send(
-            new \App\Mail\CreatedProjects($project)
-        );
+        Project::create($attributes);
         return redirect('/projects');
     }
 
@@ -85,12 +77,7 @@ class ProjectsController extends Controller
     public function update(Project $project, Request $request)
     {
         $this->authorize('view', $project);
-        $project->update(
-            $request->validate([
-            'title' => 'required|min:3|max:255',
-            'description' => 'required|min:3'
-            ])
-        );
+        $project->update($this->validateProject($request));
         return redirect('/projects');
     }
 
@@ -105,5 +92,13 @@ class ProjectsController extends Controller
         $this->authorize('view', $project);
         $project->delete();
         return redirect('/projects');
+    }
+
+    public function validateProject(Request $request)
+    {
+        return $request->validate([
+            'title' => 'required|min:3|max:255',
+            'description' => 'required|min:3'
+        ]);
     }
 }
