@@ -39,7 +39,10 @@ class ProjectsController extends Controller
     {
         $attributes = $this->validateProject($request);
         $attributes['owner_id'] = auth()->id();
-        Project::create($attributes);
+        $project = Project::create($attributes);
+        \Mail::to($project->owner->email)->send(
+            new \App\Mail\CreatedProjects($project)
+        );
         return redirect('/projects');
     }
 
