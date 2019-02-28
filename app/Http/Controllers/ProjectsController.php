@@ -15,6 +15,9 @@ class ProjectsController extends Controller
     public function index()
     {
         $projects = Project::where('owner_id', auth()->id())->get();
+        cache()->rememberForever('projectsTitles', function () {
+            return Project::all()->pluck('title');
+        });
         return view('projects.index', compact('projects'));
     }
 
@@ -41,7 +44,10 @@ class ProjectsController extends Controller
             'description' => 'required|min:3'
         ]);
         $attributes['owner_id'] = auth()->id();
-        Project::create($attributes);
+        $project = Project::create($attributes);
+        \Mail::to('onika@example.com')->send(
+            new \App\Mail\CreatedProjects($project)
+        );
         return redirect('/projects');
     }
 
